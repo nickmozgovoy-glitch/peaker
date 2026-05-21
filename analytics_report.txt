@@ -1,0 +1,37 @@
+Peak Detector Analytics Report
+Generated: 2026-05-21 22:04
+Period: 2026-05-21 to 2026-05-21
+Total events: 291
+
+BY DAY:
+  2026-05-21: 291 events, avg score 2.3, max 4.0
+
+TOP 10 EVENTS:
+  1. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
+     Sources: memeorandum, news, techmeme
+  2. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
+     Sources: memeorandum, news, techmeme
+  3. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
+     Sources: memeorandum, news, youtube
+  4. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
+     Sources: memeorandum, news, youtube
+  5. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
+     Sources: memeorandum, news, youtube
+  6. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
+     Sources: memeorandum, news, techmeme
+  7. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
+     Sources: memeorandum, news, youtube
+  8. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
+     Sources: memeorandum, news, youtube
+  9. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
+     Sources: memeorandum, news, youtube
+  10. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
+     Sources: memeorandum, news, youtube
+
+SOURCE FREQUENCY:
+  news: 254
+  youtube: 169
+  memeorandum: 94
+  techmeme: 57
+  hackernews: 34
+  wikipedia: 16
