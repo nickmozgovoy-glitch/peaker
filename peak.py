@@ -77,6 +77,9 @@ def fetch_news_rss():
         ("NYT World","https://rss.nytimes.com/services/xml/rss/nyt/World.xml"), ("ABC News","https://abcnews.go.com/abcnews/topstories"),
         ("CBS News","https://www.cbsnews.com/latest/rss/main"), ("NBC News","https://feeds.nbcnews.com/nbcnews/public/world"),
         ("CNN","http://rss.cnn.com/rss/edition.rss"),
+        # Unblocked via VPN — keep here; will timeout gracefully if VPN off
+        ("BBC World", "http://feeds.bbci.co.uk/news/world/rss.xml"),
+        ("The Guardian", "https://www.theguardian.com/world/rss"),
     ]
     titles = []
     for name, url in sources:
