@@ -1,0 +1,98 @@
+==================================================
+  Peak Detector MVP v0.4
+==================================================
+
+[1/3] Hacker News...
+      30 stories
+[2/3] Wikipedia...
+      100 articles
+[3/3] News RSS (7 sources)...
+      222 headlines
+
+Matching (all pairs, 2+ shared keywords)...
+
+==================================================
+  CROSS-PLATFORM PEAKS (10 found)
+==================================================
+  2 | Minnesota becomes first state to ban prediction markets
+       Sources: hackernews, news
+       HN: Minnesota becomes first state to ban prediction markets
+       News: Minnesota becomes first state to ban prediction markets
+
+  2 | Endorsed by Trump, Ed Gallrein defeats Rep. Thomas Massie in GOP House primary
+       Sources: news, wikipedia
+       News: Endorsed by Trump, Ed Gallrein defeats Rep. Thomas Massie in GOP House primary
+       Wikipedia: Thomas_Massie
+
+  2 | Arsenal fans erupt after team secures Premier League crown
+       Sources: news, wikipedia
+       News: Arsenal fans erupt after team secures Premier League crown
+       Wikipedia: Premier_League
+
+  2 | Republican Thomas Massie who stood up to Trump defeated in Kentucky primary
+       Sources: news, wikipedia
+       News: Republican Thomas Massie who stood up to Trump defeated in Kentucky primary
+       Wikipedia: Thomas_Massie
+
+  2 | US to let DR Congo football team in for World Cup despite Ebola restrictions
+       Sources: news, wikipedia
+       News: US to let DR Congo football team in for World Cup despite Ebola restrictions
+       Wikipedia: Brazil_national_football_team
+
+  2 | Arsenal’s Arteta claims Premier League to step from Guardiola’s shadow
+       Sources: news, wikipedia
+       News: Arsenal’s Arteta claims Premier League to step from Guardiola’s shadow
+       Wikipedia: Premier_League
+
+  2 | Arsenal crowned Premier League champions as Man City draw at Bournemouth
+       Sources: news, wikipedia
+       News: Arsenal crowned Premier League champions as Man City draw at Bournemouth
+       Wikipedia: Premier_League
+
+  2 | Millions Recovered in FIFA Corruption Scandal May Now Be Missing Again Before World Cup
+       Sources: news, wikipedia
+       News: Millions Recovered in FIFA Corruption Scandal May Now Be Missing Again Before World Cup
+       Wikipedia: 2026_FIFA_World_Cup
+
+  2 | Chelsea searches for new manager as Premier League breaks record for most sackings in a single seaso
+       Sources: news, wikipedia
+       News: Chelsea searches for new manager as Premier League breaks record for most sackings in a single seaso
+       Wikipedia: Premier_League
+
+  2 | Watch: Rep. Thomas Massie concedes Kentucky House GOP primary to Trump-backed Ed Gallrein
+       Sources: news, wikipedia
+       News: Watch: Rep. Thomas Massie concedes Kentucky House GOP primary to Trump-backed Ed Gallrein
+       Wikipedia: Thomas_Massie
+
+Report saved to peak_report.html
+
+════════════════════════════════════════════════════
+  Peak Detector v0.5
+════════════════════════════════════════════════════
+
+  ✓ Hacker News:  30 stories
+  ⚠  Reddit r/worldnews: syntax error: line 1, column 0
+  ⚠  Reddit r/news: syntax error: line 1, column 0
+  ⚠  Reddit r/technology: syntax error: line 1, column 0
+  ⚠  Reddit r/science: syntax error: line 1, column 0
+  ⚠  Reddit r/politics: syntax error: line 1, column 0
+  ⚠  Reddit r/business: syntax error: line 1, column 0
+  ⚠  Reddit r/environment: syntax error: line 1, column 0
+  ✓ Reddit RSS:   0 posts
+  ✓ News RSS:     222 headlines (7 outlets)
+  ✓ Wikipedia:    146 articles
+
+Matching across all source pairs...
+
+════════════════════════════════════════════════════
+  CROSS-PLATFORM PEAKS — 2 found
+════════════════════════════════════════════════════
+
+  #01 [██░░░░] score 2  |  Meta blocks human rights accounts from reaching audiences in Saudi Arabia, UAE
+       Sources: hackernews + news
+
+  #02 [██░░░░] score 2  |  Victory: Tennessee man jailed 37 days for Trump meme wins $835,000 settlement
+       Sources: hackernews + news
+
+  Report saved → peak_report.html
+
