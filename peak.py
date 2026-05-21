@@ -89,6 +89,51 @@ def fetch_news_rss():
     print(f"  ✓ News RSS:     {len(titles)} headlines ({len(sources)} outlets)")
     return titles
 
+
+def fetch_gdelt():
+    """GDELT global news — free, no key, updates every 15 min."""
+    try:
+        url = "https://api.gdeltproject.org/api/v2/doc/doc?query=world&mode=artlist&maxrecords=50&format=json"
+        resp = requests.get(url, timeout=15).json()
+        titles = [a["title"] for a in resp.get("articles", []) if "title" in a]
+        print(f"  ✓ GDELT:        {len(titles)} articles")
+        return titles
+    except Exception as e:
+        print(f"  ✗ GDELT:        {e}")
+        return []
+
+def fetch_techmeme():
+    """Techmeme RSS — clustered tech news."""
+    try:
+        resp = requests.get("https://www.techmeme.com/feed.xml", headers={"User-Agent": USER_AGENT}, timeout=15)
+        root = ET.fromstring(resp.text)
+        titles = []
+        for item in root.iter("item"):
+            t = item.find("title")
+            if t is not None and t.text:
+                titles.append(t.text.strip())
+        print(f"  ✓ Techmeme:     {len(titles)} stories")
+        return titles
+    except Exception as e:
+        print(f"  ✗ Techmeme:     {e}")
+        return []
+
+def fetch_memeorandum():
+    """Memeorandum RSS — clustered political news."""
+    try:
+        resp = requests.get("https://www.memeorandum.com/feed.xml", headers={"User-Agent": USER_AGENT}, timeout=15)
+        root = ET.fromstring(resp.text)
+        titles = []
+        for item in root.iter("item"):
+            t = item.find("title")
+            if t is not None and t.text:
+                titles.append(t.text.strip())
+        print(f"  ✓ Memeorandum:  {len(titles)} stories")
+        return titles
+    except Exception as e:
+        print(f"  ✗ Memeorandum:  {e}")
+        return []
+
 def fetch_wikipedia():
     noise = {"main page","special:","wikipedia:","portal:","help:","template:","mediawiki:","talk:","file:","index.php"}
     try:
@@ -167,9 +212,12 @@ def main():
     hn = fetch_hackernews()
     red = fetch_reddit_rss()
     news = fetch_news_rss()
+    gdelt_titles = fetch_gdelt()
+    techmeme_titles = fetch_techmeme()
+    memeorandum_titles = fetch_memeorandum()
     wiki_d = fetch_wikipedia()
     wiki = [a[0] for a in wiki_d]
-    all_s = {"hackernews":hn,"reddit":red,"news":news,"wikipedia":wiki}
+    all_s = {"hackernews":hn,"reddit":red,"news":news,"gdelt":gdelt_titles, "techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "wikipedia":wiki}
     print("\nMatching across all source pairs...")
     raw = []
     for i, a in enumerate(list(all_s.keys())):
