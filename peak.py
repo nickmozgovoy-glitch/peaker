@@ -198,6 +198,53 @@ def fetch_dw():
         print(f"  ✗ DW:           {e}")
         return []
 
+
+def fetch_wikipedia_anomalies():
+    """
+    Wikipedia Recent Changes anomaly detector.
+    Returns article titles that are being edited by 3+ unique editors
+    in the last 20 minutes — early signal of breaking news.
+    """
+    try:
+        url = "https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rcnamespace=0&rclimit=100&rcprop=title|timestamp|user&format=json"
+        resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
+        data = resp.json()
+        changes = data.get("query", {}).get("recentchanges", [])
+        if not changes:
+            return []
+
+        # Group by title and count unique editors
+        from collections import defaultdict
+        now = datetime.now()
+        article_editors = defaultdict(set)
+
+        for ch in changes:
+            title = ch.get("title", "")
+            user = ch.get("user", "")
+            ts_str = ch.get("timestamp", "")
+            if not title or not user:
+                continue
+            # Parse timestamp and check if within last 20 minutes
+            try:
+                ts = datetime.strptime(ts_str, "%Y-%m-%dT%H:%M:%SZ")
+                age_minutes = (now - ts).total_seconds() / 60
+                if age_minutes <= 20:
+                    article_editors[title].add(user)
+            except:
+                continue
+
+        # Filter: 3+ unique editors = anomaly
+        anomalies = [title for title, editors in article_editors.items() if len(editors) >= 3]
+
+        if anomalies:
+            print(f"  ✓ Wiki Anomalies: {len(anomalies)} breaking signals")
+        else:
+            print(f"  ✓ Wiki Anomalies: 0 breaking signals (normal)")
+        return anomalies
+    except Exception as e:
+        print(f"  ✗ Wiki Anomalies: {e}")
+        return []
+
 def fetch_wikipedia():
     noise = {"main page","special:","wikipedia:","portal:","help:","template:","mediawiki:","talk:","file:","index.php"}
     try:
@@ -282,9 +329,10 @@ def main():
     gdelt_titles = fetch_gdelt()
     techmeme_titles = fetch_techmeme()
     memeorandum_titles = fetch_memeorandum()
+    wiki_anomalies = fetch_wikipedia_anomalies()
     wiki_d = fetch_wikipedia()
     wiki = [a[0] for a in wiki_d]
-    all_s = {"hackernews":hn,"reddit":red,"news":news,"gdelt":gdelt_titles, "techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "youtube":youtube_titles, "producthunt":producthunt_titles, "dw":dw_titles, "wikipedia":wiki}
+    all_s = {"hackernews":hn,"reddit":red,"news":news,"gdelt":gdelt_titles, "techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "youtube":youtube_titles, "producthunt":producthunt_titles, "dw":dw_titles, "wikipedia_anomalies":wiki_anomalies, "wikipedia":wiki}
     print("\nMatching across all source pairs...")
     raw = []
     for i, a in enumerate(list(all_s.keys())):
