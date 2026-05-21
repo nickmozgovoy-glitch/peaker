@@ -134,6 +134,67 @@ def fetch_memeorandum():
         print(f"  ✗ Memeorandum:  {e}")
         return []
 
+
+def fetch_youtube_rss():
+    """YouTube RSS feeds from major news channels."""
+    channels = [
+        ("BBC News", "https://www.youtube.com/feeds/videos.xml?channel_id=UCYfdidRxbB8Qhf0Nx7ioOYw"),
+        ("CNN", "https://www.youtube.com/feeds/videos.xml?channel_id=UCupvZG-5ko_eiXAupbDfxWw"),
+        ("Sky News", "https://www.youtube.com/feeds/videos.xml?channel_id=UCGSJ8YQ4qB3Nf4cL9k9sX2Q"),
+        ("Reuters", "https://www.youtube.com/feeds/videos.xml?channel_id=UChqUTb7kYRX8-EiaN3XFrSQ"),
+    ]
+    titles = []
+    for name, url in channels:
+        try:
+            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
+            ns = "{http://www.w3.org/2005/Atom}"
+            root = ET.fromstring(resp.text)
+            for entry in root.iter(f"{ns}entry"):
+                t = entry.find(f"{ns}title")
+                if t is not None and t.text:
+                    titles.append(t.text.strip())
+        except Exception as e:
+            print(f"  ⚠  YT {name}: {e}")
+    print(f"  ✓ YouTube RSS:  {len(titles)} videos")
+    return titles
+
+def fetch_producthunt():
+    """Product Hunt RSS — tech product launches."""
+    try:
+        resp = requests.get("https://www.producthunt.com/feed", headers={"User-Agent": USER_AGENT}, timeout=15)
+        root = ET.fromstring(resp.text)
+        titles = []
+        for item in root.iter("item"):
+            t = item.find("title")
+            if t is not None and t.text:
+                titles.append(t.text.strip())
+        if not titles:
+            for item in root.iter("{http://www.w3.org/2005/Atom}entry"):
+                t = item.find("{http://www.w3.org/2005/Atom}title")
+                if t is not None and t.text:
+                    titles.append(t.text.strip())
+        print(f"  ✓ Product Hunt: {len(titles)} products")
+        return titles
+    except Exception as e:
+        print(f"  ✗ Product Hunt: {e}")
+        return []
+
+def fetch_dw():
+    """Deutsche Welle RSS — European/global news."""
+    try:
+        resp = requests.get("https://rss.dw.com/rdf/rss-en-all", headers={"User-Agent": USER_AGENT}, timeout=15)
+        root = ET.fromstring(resp.text)
+        titles = []
+        for item in root.iter("item"):
+            t = item.find("title")
+            if t is not None and t.text:
+                titles.append(t.text.strip())
+        print(f"  ✓ DW:           {len(titles)} headlines")
+        return titles
+    except Exception as e:
+        print(f"  ✗ DW:           {e}")
+        return []
+
 def fetch_wikipedia():
     noise = {"main page","special:","wikipedia:","portal:","help:","template:","mediawiki:","talk:","file:","index.php"}
     try:
@@ -212,12 +273,15 @@ def main():
     hn = fetch_hackernews()
     red = fetch_reddit_rss()
     news = fetch_news_rss()
+    youtube_titles = fetch_youtube_rss()
+    producthunt_titles = fetch_producthunt()
+    dw_titles = fetch_dw()
     gdelt_titles = fetch_gdelt()
     techmeme_titles = fetch_techmeme()
     memeorandum_titles = fetch_memeorandum()
     wiki_d = fetch_wikipedia()
     wiki = [a[0] for a in wiki_d]
-    all_s = {"hackernews":hn,"reddit":red,"news":news,"gdelt":gdelt_titles, "techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "wikipedia":wiki}
+    all_s = {"hackernews":hn,"reddit":red,"news":news,"gdelt":gdelt_titles, "techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "youtube":youtube_titles, "producthunt":producthunt_titles, "dw":dw_titles, "wikipedia":wiki}
     print("\nMatching across all source pairs...")
     raw = []
     for i, a in enumerate(list(all_s.keys())):
