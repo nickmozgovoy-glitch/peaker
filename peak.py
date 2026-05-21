@@ -45,14 +45,16 @@ def check_telegram_updates():
 def fetch_hackernews():
     try:
         ids = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json", timeout=10).json()[:30]
-        titles = []
+        items = []
         for sid in ids:
             try:
                 s = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{sid}.json", timeout=8).json()
-                if s and "title" in s: titles.append(s["title"])
+                if s and "title" in s:
+                    url = s.get("url") or f"https://news.ycombinator.com/item?id={sid}"
+                    items.append((s["title"], url))
             except: continue
-        print(f"  ✓ Hacker News:  {len(titles)} stories")
-        return titles
+        print(f"  ✓ Hacker News:  {len(items)} stories")
+        return items
     except Exception as e:
         print(f"  ✗ Hacker News:  {e}")
         return []
@@ -81,16 +83,19 @@ def fetch_news_rss():
         ("BBC World", "http://feeds.bbci.co.uk/news/world/rss.xml"),
         ("The Guardian", "https://www.theguardian.com/world/rss"),
     ]
-    titles = []
+    items = []
     for name, url in sources:
         try:
             resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=12)
-            for item in ET.fromstring(resp.text).iter("item"):
-                t = item.find("title")
-                if t is not None and t.text: titles.append(t.text.strip())
+            for el in ET.fromstring(resp.text).iter("item"):
+                t = el.find("title")
+                link = el.find("link")
+                if t is not None and t.text:
+                    url_str = link.text.strip() if link is not None and link.text else ""
+                    items.append((t.text.strip(), url_str))
         except Exception as e: print(f"  ⚠  {name}: {e}")
-    print(f"  ✓ News RSS:     {len(titles)} headlines ({len(sources)} outlets)")
-    return titles
+    print(f"  ✓ News RSS:     {len(items)} headlines ({len(sources)} outlets)")
+    return items
 
 
 def fetch_gdelt():
@@ -139,14 +144,14 @@ def fetch_memeorandum():
 
 
 def fetch_youtube_rss():
-    """YouTube RSS feeds from major news channels."""
+    """YouTube RSS feeds from major news channels. Returns list of (title, url)."""
     channels = [
         ("BBC News", "https://www.youtube.com/feeds/videos.xml?channel_id=UCYfdidRxbB8Qhf0Nx7ioOYw"),
         ("CNN", "https://www.youtube.com/feeds/videos.xml?channel_id=UCupvZG-5ko_eiXAupbDfxWw"),
         ("Sky News", "https://www.youtube.com/feeds/videos.xml?channel_id=UCGSJ8YQ4qB3Nf4cL9k9sX2Q"),
         ("Reuters", "https://www.youtube.com/feeds/videos.xml?channel_id=UChqUTb7kYRX8-EiaN3XFrSQ"),
     ]
-    titles = []
+    items = []
     for name, url in channels:
         try:
             resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
@@ -154,12 +159,14 @@ def fetch_youtube_rss():
             root = ET.fromstring(resp.text)
             for entry in root.iter(f"{ns}entry"):
                 t = entry.find(f"{ns}title")
+                link = entry.find(f"{ns}link")
                 if t is not None and t.text:
-                    titles.append(t.text.strip())
+                    video_url = link.get("href") if link is not None else ""
+                    items.append((t.text.strip(), video_url))
         except Exception as e:
             print(f"  ⚠  YT {name}: {e}")
-    print(f"  ✓ YouTube RSS:  {len(titles)} videos")
-    return titles
+    print(f"  ✓ YouTube RSS:  {len(items)} videos")
+    return items
 
 def fetch_producthunt():
     """Product Hunt RSS — tech product launches."""
@@ -300,7 +307,7 @@ def save_events(conn, events):
 def bar(score, mx=6):
     return "█"*min(score,mx) + "░"*(mx-min(score,mx))
 
-def html(events):
+def html(events, url_map=None):
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     cols = {"hackernews":"#f97316","reddit":"#ef4444","news":"#3b82f6","wikipedia":"#22c55e"}
     cards = ""
@@ -319,12 +326,16 @@ def html(events):
 </body></html>"""
 
 def main():
-    print("\n"+"═"*52+"\n  Peak Detector v0.5\n"+"═"*52+"\n")
-    hn = fetch_hackernews()
+    print("\n"+"═"*52+"\n  Peak Detector v1.0\n"+"═"*52+"\n")
+    hn_items = fetch_hackernews()
+    hn = [t[0] if isinstance(t, tuple) else t for t in hn_items]
     red = fetch_reddit_rss()
-    news = fetch_news_rss()
-    youtube_titles = fetch_youtube_rss()
-    producthunt_titles = fetch_producthunt()
+    news_items = fetch_news_rss()
+    news = [t[0] if isinstance(t, tuple) else t for t in news_items]
+    youtube_items = fetch_youtube_rss()
+    youtube_titles = [t[0] if isinstance(t, tuple) else t for t in youtube_items]
+    producthunt_items = fetch_producthunt()
+    producthunt_titles = [t[0] if isinstance(t, tuple) else t for t in producthunt_items]
     dw_titles = fetch_dw()
     gdelt_titles = fetch_gdelt()
     techmeme_titles = fetch_techmeme()
@@ -353,7 +364,14 @@ def main():
         print(f"  #{i:02d} [{bar(e['score'])}] score {e['score']}  |  {e['canonical'][:80]}")
         print(f"       Sources: {' + '.join(e['sources'])}")
         print()
-    with open(REPORT_PATH, "w", encoding="utf-8") as f: f.write(html(events))
+        url_map = {}
+    for src_items in [news_items, youtube_items, hn_items, producthunt_items]:
+        try:
+            for item in src_items:
+                if isinstance(item, tuple) and len(item) > 1 and item[1]:
+                    url_map[item[0]] = item[1]
+        except: pass
+    with open(REPORT_PATH, "w", encoding="utf-8") as f: f.write(html(events, url_map))
 
     if events:
         msg_lines = ["🔴 <b>Peak — Top Events</b>\n"]
