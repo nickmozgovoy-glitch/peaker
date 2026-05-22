@@ -45,6 +45,10 @@ def check_telegram_updates():
     return False
 
 def fetch_hackernews():
+    cached = get_cached("hackernews", 60)
+    if cached:
+        print(f"  ✓ Hacker News:  {len(cached)} stories (cached)")
+        return cached
     try:
         ids = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json", timeout=10).json()[:30]
         items = []
@@ -118,6 +122,10 @@ def fetch_gdelt():
         return []
 
 def fetch_techmeme():
+    cached = get_cached("techmeme", 60)
+    if cached:
+        print(f"  ✓ Techmeme:     {len(cached)} stories (cached)")
+        return cached
     """Techmeme RSS — clustered tech news."""
     try:
         resp = requests.get("https://www.techmeme.com/feed.xml", headers={"User-Agent": USER_AGENT}, timeout=15)
@@ -134,6 +142,10 @@ def fetch_techmeme():
         return []
 
 def fetch_memeorandum():
+    cached = get_cached("memeorandum", 60)
+    if cached:
+        print(f"  ✓ Memeorandum:  {len(cached)} stories (cached)")
+        return cached
     """Memeorandum RSS — clustered political news."""
     try:
         resp = requests.get("https://www.memeorandum.com/feed.xml", headers={"User-Agent": USER_AGENT}, timeout=15)
@@ -260,6 +272,10 @@ def fetch_wikipedia_anomalies():
         return []
 
 def fetch_wikipedia():
+    cached = get_cached("wikipedia", 60)
+    if cached:
+        print(f"  ✓ Wikipedia:    {len(cached)} articles (cached)")
+        return cached
     noise = {"main page","special:","wikipedia:","portal:","help:","template:","mediawiki:","talk:","file:","index.php"}
     try:
         y = (datetime.now() - timedelta(days=1)).strftime("%Y/%m/%d")

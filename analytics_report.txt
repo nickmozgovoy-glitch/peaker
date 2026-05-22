@@ -1,38 +1,39 @@
 Peak Detector Analytics Report
-Generated: 2026-05-22 09:25
+Generated: 2026-05-22 12:53
 Period: 2026-05-21 to 2026-05-22
-Total events: 457
+Total events: 586
 
 BY DAY:
   2026-05-21: 390 events, avg score 2.3, max 4.0
-  2026-05-22: 67 events, avg score 2.1, max 4.0
+  2026-05-22: 196 events, avg score 2.3, max 6.0
 
 TOP 10 EVENTS:
-  1. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
-     Sources: memeorandum, news, techmeme
+  1. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+     Sources: memeorandum, news, techmeme, wikipedia
   2. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
      Sources: memeorandum, news, techmeme
-  3. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
-     Sources: memeorandum, news, youtube
-  4. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
-     Sources: memeorandum, news, youtube
-  5. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
-     Sources: memeorandum, news, youtube
-  6. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
+  3. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
      Sources: memeorandum, news, techmeme
-  7. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
+  4. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
      Sources: memeorandum, news, youtube
-  8. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
+  5. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
      Sources: memeorandum, news, youtube
-  9. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
+  6. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
      Sources: memeorandum, news, youtube
-  10. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
+  7. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
+     Sources: memeorandum, news, techmeme
+  8. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
+     Sources: memeorandum, news, youtube
+  9. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
+     Sources: memeorandum, news, youtube
+  10. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
      Sources: memeorandum, news, youtube
 
 SOURCE FREQUENCY:
-  news: 399
-  youtube: 226
-  memeorandum: 163
-  techmeme: 100
-  hackernews: 54
-  wikipedia: 28
+  news: 517
+  youtube: 289
+  memeorandum: 211
+  techmeme: 120
+  hackernews: 64
+  wikipedia: 51
+  producthunt: 1

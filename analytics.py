@@ -119,3 +119,42 @@ def quality_metrics():
 if __name__ == '__main__':
     analyze()
     quality_metrics()
+
+def source_contribution():
+    import sqlite3
+    from collections import Counter
+    conn = sqlite3.connect('peak.db')
+    rows = conn.execute('SELECT sources, score FROM events').fetchall()
+    if not rows:
+        print('Нет данных')
+        return
+    print()
+    print('=' * 50)
+    print('  SOURCE CONTRIBUTION')
+    print('=' * 50)
+    src_counts = Counter()
+    for sources, _ in rows:
+        for src in sources.split(', '):
+            src_counts[src] += 1
+    total = len(rows)
+    for src, count in src_counts.most_common():
+        pct = count / total * 100
+        print(f'  {src:20s}: {count:4d} событий ({pct:5.1f}%)')
+    print()
+    pair_counts = Counter()
+    for sources, _ in rows:
+        src_list = sorted(sources.split(', '))
+        if len(src_list) >= 2:
+            for i in range(len(src_list)):
+                for j in range(i+1, len(src_list)):
+                    pair_counts[(src_list[i], src_list[j])] += 1
+    print('  TOP 5 SOURCE PAIRS:')
+    for (a, b), count in pair_counts.most_common(5):
+        pct = count / total * 100
+        print(f'  {a} + {b}: {count} ({pct:.1f}%)')
+    conn.close()
+
+if __name__ == '__main__':
+    analyze()
+    quality_metrics()
+    source_contribution()
