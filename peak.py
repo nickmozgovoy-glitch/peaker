@@ -9,6 +9,8 @@ def send_telegram(text):
 """peak.py v0.5 — Cross-platform event detector with deduplication and scoring."""
 import requests, sqlite3, xml.etree.ElementTree as ET, time, json
 from datetime import datetime, timedelta
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 DB_NAME, REPORT_PATH = "peak.db", "peak_report.html"
 USER_AGENT = "Mozilla/5.0"
@@ -74,6 +76,10 @@ def fetch_reddit_rss():
     return titles
 
 def fetch_news_rss():
+    cached = get_cached("news_rss", 60)
+    if cached:
+        print(f"  ✓ News RSS:     {len(cached)} headlines (cached)")
+        return cached
     sources = [
         ("NPR","https://feeds.npr.org/1001/rss.xml"), ("Al Jazeera","https://www.aljazeera.com/xml/rss/all.xml"),
         ("NYT World","https://rss.nytimes.com/services/xml/rss/nyt/World.xml"), ("ABC News","https://abcnews.go.com/abcnews/topstories"),
@@ -95,6 +101,7 @@ def fetch_news_rss():
                     items.append((t.text.strip(), url_str))
         except Exception as e: print(f"  ⚠  {name}: {e}")
     print(f"  ✓ News RSS:     {len(items)} headlines ({len(sources)} outlets)")
+    save_cache("news_rss", items)
     return items
 
 
@@ -270,7 +277,18 @@ def keywords(text):
 
 def match(t1, t2, min_common=2):
     k1, k2 = keywords(t1), keywords(t2)
-    return bool(k1 and k2) and len(k1 & k2) >= min_common
+    if k1 and k2 and len(k1 & k2) >= min_common:
+        return True
+    # TF-IDF fallback for paraphrases
+    try:
+        vec = TfidfVectorizer(stop_words='english', max_features=100)
+        tfidf = vec.fit_transform([t1, t2])
+        sim = cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0]
+        if sim >= 0.3:
+            return True
+    except:
+        pass
+    return False
 
 def cluster_and_score(raw_hits):
     groups = {}
@@ -324,6 +342,34 @@ def html(events, url_map=None):
 <div style="border-bottom:1px solid #222;padding-bottom:1rem;margin-bottom:1.5rem"><span style="font-size:28px;font-weight:600;letter-spacing:-1px">pe<span style="color:#ff6b35">a</span>k</span><span style="color:#444;font-size:13px;margin-left:12px">{len(events)} events · {now}</span></div>
 {cards if events else '<div style="color:#555;text-align:center;padding:3rem">No cross-platform events detected.</div>'}
 </body></html>"""
+
+
+def get_cached(source_name, max_age_min=90):
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        row = conn.execute('SELECT data, ts FROM source_cache WHERE source=? ORDER BY ts DESC LIMIT 1', (source_name,)).fetchone()
+        conn.close()
+        if row:
+            age = (datetime.now() - datetime.fromisoformat(row[1])).total_seconds() / 60
+            if age < max_age_min:
+                data = json.loads(row[0])
+                # Восстанавливаем кортежи, если они превратились в списки
+                if data and isinstance(data[0], list):
+                    data = [tuple(item) if isinstance(item, list) else item for item in data]
+                return data
+    except:
+        pass
+    return None
+
+def save_cache(source_name, data):
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        conn.execute('CREATE TABLE IF NOT EXISTS source_cache (source TEXT, data TEXT, ts TEXT)')
+        conn.execute('INSERT INTO source_cache (source, data, ts) VALUES (?, ?, ?)', (source_name, json.dumps(data), datetime.now().isoformat()))
+        conn.commit()
+        conn.close()
+    except:
+        pass
 
 def main():
     print("\n"+"═"*52+"\n  Peak Detector v1.0\n"+"═"*52+"\n")
