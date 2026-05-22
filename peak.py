@@ -163,6 +163,10 @@ def fetch_memeorandum():
 
 
 def fetch_youtube_rss():
+    cached = get_cached("youtube_rss", 60)
+    if cached:
+        print(f"  ✓ YouTube RSS:  {len(cached)} videos (cached)")
+        return cached
     """YouTube RSS feeds from major news channels. Returns list of (title, url)."""
     channels = [
         ("BBC News", "https://www.youtube.com/feeds/videos.xml?channel_id=UCYfdidRxbB8Qhf0Nx7ioOYw"),
@@ -185,9 +189,14 @@ def fetch_youtube_rss():
         except Exception as e:
             print(f"  ⚠  YT {name}: {e}")
     print(f"  ✓ YouTube RSS:  {len(items)} videos")
+    save_cache("youtube_rss", items)
     return items
 
 def fetch_producthunt():
+    cached = get_cached("producthunt", 60)
+    if cached:
+        print(f"  ✓ Product Hunt: {len(cached)} products (cached)")
+        return cached
     """Product Hunt RSS — tech product launches."""
     try:
         resp = requests.get("https://www.producthunt.com/feed", headers={"User-Agent": USER_AGENT}, timeout=15)
@@ -391,21 +400,21 @@ def main():
     print("\n"+"═"*52+"\n  Peak Detector v1.0\n"+"═"*52+"\n")
     hn_items = fetch_hackernews()
     hn = [t[0] if isinstance(t, tuple) else t for t in hn_items]
-    red = fetch_reddit_rss()
+    red = []  # Reddit blocked
     news_items = fetch_news_rss()
     news = [t[0] if isinstance(t, tuple) else t for t in news_items]
     youtube_items = fetch_youtube_rss()
     youtube_titles = [t[0] if isinstance(t, tuple) else t for t in youtube_items]
     producthunt_items = fetch_producthunt()
     producthunt_titles = [t[0] if isinstance(t, tuple) else t for t in producthunt_items]
-    dw_titles = fetch_dw()
-    gdelt_titles = fetch_gdelt()
+    dw_titles = []  # DW not working
+    gdelt_titles = []  # GDELT disabled
     techmeme_titles = fetch_techmeme()
     memeorandum_titles = fetch_memeorandum()
     wiki_anomalies = fetch_wikipedia_anomalies()
     wiki_d = fetch_wikipedia()
     wiki = [a[0] for a in wiki_d]
-    all_s = {"hackernews":hn,"reddit":red,"news":news,"gdelt":gdelt_titles, "techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "youtube":youtube_titles, "producthunt":producthunt_titles, "dw":dw_titles, "wikipedia_anomalies":wiki_anomalies, "wikipedia":wiki}
+    all_s = {"hackernews":hn,"reddit":red,"news":news,"techmeme":techmeme_titles, "memeorandum":memeorandum_titles, "youtube":youtube_titles, "producthunt":producthunt_titles, "wikipedia_anomalies":wiki_anomalies, "wikipedia":wiki}
     print("\nMatching across all source pairs...")
     raw = []
     for i, a in enumerate(list(all_s.keys())):

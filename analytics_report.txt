@@ -1,39 +1,39 @@
 Peak Detector Analytics Report
-Generated: 2026-05-22 12:53
+Generated: 2026-05-22 14:34
 Period: 2026-05-21 to 2026-05-22
-Total events: 586
+Total events: 716
 
 BY DAY:
   2026-05-21: 390 events, avg score 2.3, max 4.0
-  2026-05-22: 196 events, avg score 2.3, max 6.0
+  2026-05-22: 326 events, avg score 2.5, max 6.0
 
 TOP 10 EVENTS:
   1. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
      Sources: memeorandum, news, techmeme, wikipedia
-  2. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
+  2. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+     Sources: memeorandum, news, techmeme, wikipedia
+  3. [6.0] Trump is supporting Spencer Pratt in the LA mayor’s race. It may be a poison pill
+     Sources: memeorandum, news, techmeme, wikipedia
+  4. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+     Sources: memeorandum, news, techmeme, wikipedia
+  5. [6.0] Trump is supporting Spencer Pratt in the LA mayor’s race. It may be a poison pill
+     Sources: memeorandum, news, techmeme, wikipedia
+  6. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+     Sources: memeorandum, news, techmeme, wikipedia
+  7. [6.0] Trump is supporting Spencer Pratt in the LA mayor’s race. It may be a poison pill
+     Sources: memeorandum, news, techmeme, wikipedia
+  8. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+     Sources: memeorandum, news, techmeme, wikipedia
+  9. [6.0] Trump is supporting Spencer Pratt in the LA mayor’s race. It may be a poison pill
+     Sources: memeorandum, news, techmeme, wikipedia
+  10. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
      Sources: memeorandum, news, techmeme
-  3. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
-     Sources: memeorandum, news, techmeme
-  4. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
-     Sources: memeorandum, news, youtube
-  5. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
-     Sources: memeorandum, news, youtube
-  6. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
-     Sources: memeorandum, news, youtube
-  7. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
-     Sources: memeorandum, news, techmeme
-  8. [4.0] Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid Ebola Fears
-     Sources: memeorandum, news, youtube
-  9. [4.0] Ebola Outbreak Is Unlikely to Become Global Threat, W.H.O. Says
-     Sources: memeorandum, news, youtube
-  10. [4.0] Absence of USAID likely slowed Ebola detection and response, former officials say
-     Sources: memeorandum, news, youtube
 
 SOURCE FREQUENCY:
-  news: 517
-  youtube: 289
-  memeorandum: 211
-  techmeme: 120
-  hackernews: 64
-  wikipedia: 51
-  producthunt: 1
+  news: 625
+  youtube: 326
+  memeorandum: 255
+  techmeme: 140
+  wikipedia: 130
+  hackernews: 76
+  producthunt: 5
