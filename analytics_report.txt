@@ -1,10 +1,11 @@
 Peak Detector Analytics Report
-Generated: 2026-05-21 22:04
-Period: 2026-05-21 to 2026-05-21
-Total events: 291
+Generated: 2026-05-22 09:25
+Period: 2026-05-21 to 2026-05-22
+Total events: 457
 
 BY DAY:
-  2026-05-21: 291 events, avg score 2.3, max 4.0
+  2026-05-21: 390 events, avg score 2.3, max 4.0
+  2026-05-22: 67 events, avg score 2.1, max 4.0
 
 TOP 10 EVENTS:
   1. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
@@ -29,9 +30,9 @@ TOP 10 EVENTS:
      Sources: memeorandum, news, youtube
 
 SOURCE FREQUENCY:
-  news: 254
-  youtube: 169
-  memeorandum: 94
-  techmeme: 57
-  hackernews: 34
-  wikipedia: 16
+  news: 399
+  youtube: 226
+  memeorandum: 163
+  techmeme: 100
+  hackernews: 54
+  wikipedia: 28

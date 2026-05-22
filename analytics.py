@@ -90,3 +90,32 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
+def quality_metrics():
+    import sqlite3
+    from collections import Counter
+    conn = sqlite3.connect('peak.db')
+    rows = conn.execute('SELECT score, sources FROM events').fetchall()
+    if not rows:
+        print('Нет данных для метрик')
+        return
+    total = len(rows)
+    high_score = sum(1 for s, _ in rows if s >= 4)
+    signal_ratio = high_score / total * 100
+    print(f'Signal Ratio: {high_score}/{total} = {signal_ratio:.1f}% (цель 30-40%)')
+    pair_counts = Counter()
+    for _, sources in rows:
+        src_list = sorted(sources.split(', '))
+        if len(src_list) >= 2:
+            for i in range(len(src_list)):
+                for j in range(i+1, len(src_list)):
+                    pair_counts[(src_list[i], src_list[j])] += 1
+    if pair_counts:
+        top_pair, top_count = pair_counts.most_common(1)[0]
+        pair_share = top_count / total * 100
+        print(f'Top source pair: {"+".join(top_pair)} = {pair_share:.1f}% (тревога если >35%)')
+    conn.close()
+
+if __name__ == '__main__':
+    analyze()
+    quality_metrics()
