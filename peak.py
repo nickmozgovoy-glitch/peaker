@@ -350,6 +350,16 @@ def is_meaningful_match(t1: str, t2: str) -> bool:
     non_trivial = shared - HIGH_FREQ_WORDS
     return len(non_trivial) > 0
 
+
+KNOWN_ENTITIES = {'twitter', 'taylor swift', 'ai', 'cuba', 'fortnite', 'apple', 'trump', 'google', 'mlb', 'china', 'cia', 'nsa', 'hamilton', 'amazon', 'putin', 'meta', 'eu', 'snapchat', 'roblox', 'reddit', 'pentagon', 'congress', 'microsoft', 'instagram', 'spacex', 'nadal', 'zelensky', 'israel', 'oscars', 'youtube', 'minecraft', 'ethereum', 'fed', 'djokovic', 'world cup', 'tiktok', 'nhl', 'netflix', 'olympics', 'modi', 'nasa', 'fbi', 'facebook', 'kanye', 'llm', 'nato', 'nba', 'nfl', 'beyonce', 'messi', 'ebola', 'chatgpt', 'biden', 'xi', 'emmy', 'covid', 'vaccine', 'drake', 'openai', 'russia', 'scholz', 'white house', 'climate', 'premier league', 'musk', 'taiwan', 'iran', 'tesla', 'senate', 'verstappen', 'bitcoin', 'rihanna', 'uk', 'fifa', 'gaza', 'macron', 'ukraine', 'gpt', 'serena', 'india', 'grammy', 'ronaldo', 'nvidia', 'imf', 'champions league', 'who', 'gta', 'un', 'germany', 'call of duty', 'supreme court', 'france', 'lebron'}
+
+def entity_match(t1: str, t2: str) -> bool:
+    """Форсировать матч, если есть общая известная сущность (без учёта регистра)."""
+    k1 = {w.lower() for w in keywords(t1)}
+    k2 = {w.lower() for w in keywords(t2)}
+    shared = (k1 & k2) & KNOWN_ENTITIES
+    return len(shared) >= 1
+
 def match(t1, t2, min_common=2):
     """Два заголовка совпадают если имеют 2+ общих значимых ключевых слова."""
     k1, k2 = keywords(t1), keywords(t2)
@@ -462,6 +472,20 @@ def save_cache(source_name, data):
         conn.close()
     except:
         pass
+
+
+def build_inverted_index(sources_dict):
+    """Строит инвертированный индекс: keyword -> [(source_name, title), ...]"""
+    from collections import defaultdict
+    index = defaultdict(list)
+    for src_name, titles in sources_dict.items():
+        for title in titles:
+            # Приводим к строке на случай, если title — кортеж
+            title_str = title[0] if isinstance(title, tuple) else title
+            kws = keywords(title_str)
+            for kw in kws:
+                index[kw].append((src_name, title_str))
+    return index
 
 def main():
     print("\n"+"═"*52+"\n  Peak Detector v1.0\n"+"═"*52+"\n")
