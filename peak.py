@@ -12,6 +12,36 @@ from datetime import datetime, timedelta
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+def parse_pub_date(item_el):
+    """Парсит pubDate из RSS элемента. Возвращает datetime или None."""
+    for tag in ["pubDate", "dc:date", "published", "updated"]:
+        el = item_el.find(tag)
+        if el is None:
+            # Попробовать с namespace
+            for ns in ["{http://purl.org/dc/elements/1.1/}date",
+                       "{http://www.w3.org/2005/Atom}published",
+                       "{http://www.w3.org/2005/Atom}updated"]:
+                el = item_el.find(ns)
+                if el is not None:
+                    break
+        if el is not None and el.text:
+            for fmt in ["%a, %d %b %Y %H:%M:%S %z",
+                        "%a, %d %b %Y %H:%M:%S GMT",
+                        "%Y-%m-%dT%H:%M:%S%z",
+                        "%Y-%m-%dT%H:%M:%SZ"]:
+                try:
+                    return datetime.strptime(el.text.strip()[:31], fmt)
+                except: continue
+    return None
+
+def age_hours(pub_dt):
+    """Возраст публикации в часах. None если дата неизвестна."""
+    if pub_dt is None:
+        return None
+    now = datetime.now(pub_dt.tzinfo) if pub_dt.tzinfo else datetime.now()
+    return max(0, (now - pub_dt).total_seconds() / 3600)
+
+
 DB_NAME, REPORT_PATH = "peak.db", "peak_report.html"
 USER_AGENT = "Mozilla/5.0"
 
@@ -300,20 +330,36 @@ def fetch_wikipedia():
 def keywords(text):
     return {w.strip("'\".,!?-()") for w in text.lower().replace("_"," ").split() if len(w)>=4 and w not in STOP_WORDS}
 
+
+# Слова которые встречаются >10% новостей и не могут быть единственной причиной матча
+HIGH_FREQ_WORDS = {
+    "trump","musk","elon","iran","russia","china","ukraine","israel","gaza",
+    "biden","obama","putin","twitter","facebook","google","apple","tesla",
+    "dogecoin","bitcoin","crypto","ethereum","war","peace","deal","talks",
+    "election","vote","president","congress","senate","court","police","killed",
+    "dead","dies","death","attack","shooting","fire","flood","crisis","market",
+    "stock","dollar","tariff","trade","nuclear","missile","military","troops",
+}
+
+def is_meaningful_match(t1: str, t2: str) -> bool:
+    """True если у текстов есть хотя бы одно нечастотное общее ключевое слово."""
+    shared = keywords(t1) & keywords(t2)
+    if not shared:
+        return False
+    # Если ВСЕ общие слова — высокочастотные → не склеиваем
+    non_trivial = shared - HIGH_FREQ_WORDS
+    return len(non_trivial) > 0
+
 def match(t1, t2, min_common=2):
+    """Два заголовка совпадают если имеют 2+ общих значимых ключевых слова."""
     k1, k2 = keywords(t1), keywords(t2)
-    if k1 and k2 and len(k1 & k2) >= min_common:
-        return True
-    # TF-IDF fallback for paraphrases
-    try:
-        vec = TfidfVectorizer(stop_words='english', max_features=100)
-        tfidf = vec.fit_transform([t1, t2])
-        sim = cosine_similarity(tfidf[0:1], tfidf[1:2])[0][0]
-        if sim >= 0.3:
-            return True
-    except:
-        pass
-    return False
+    if not k1 or not k2:
+        return False
+    if len(k1 & k2) < min_common:
+        return False
+    # Дополнительная проверка: не склеивать по одним лишь высокочастотным словам
+    return is_meaningful_match(t1, t2)
+
 
 def cluster_and_score(raw_hits):
     groups = {}
@@ -342,10 +388,31 @@ def init_db():
     return conn
 
 def save_events(conn, events):
+    """Сохранить события пропуская дубли за последние 2 часа."""
     ts = datetime.now().isoformat()
+    saved = 0
     for e in events:
-        conn.execute("INSERT INTO events (ts, canonical, score, src_count, sources, evidence) VALUES (?, ?, ?, ?, ?, ?)", (ts, e["canonical"], e["score"], e["source_count"], ", ".join(e["sources"]), "\n".join(e["evidence"])))
+        # Проверяем: не было ли такого же canonical за последние 2 часа
+        existing = conn.execute(
+            """SELECT id FROM events
+               WHERE canonical = ?
+               AND ts > datetime('now', '-2 hours')
+               LIMIT 1""",
+            (e["canonical"],)
+        ).fetchone()
+        if existing:
+            continue  # дубль — пропускаем
+        conn.execute(
+            "INSERT INTO events (ts,canonical,score,src_count,sources,evidence) "
+            "VALUES(?,?,?,?,?,?)",
+            (ts, e["canonical"], e["score"], e["source_count"],
+             ", ".join(e["sources"]),
+             str(e.get("evidence", "")))
+        )
+        saved += 1
     conn.commit()
+    if saved < len(events):
+        print(f"  ℹ  DB: {saved} новых, {len(events)-saved} дублей пропущено")
 
 def bar(score, mx=6):
     return "█"*min(score,mx) + "░"*(mx-min(score,mx))
