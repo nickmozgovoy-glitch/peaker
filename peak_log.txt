@@ -96,3 +96,124 @@ Matching across all source pairs...
 
   Report saved → peak_report.html
 
+
+════════════════════════════════════════════════════
+  Peak Detector v1.0
+════════════════════════════════════════════════════
+
+  ✓ Hacker News:  30 stories
+  ✓ News RSS:     302 headlines (cached)
+  ✓ YouTube RSS:  30 videos (cached)
+  ✓ Product Hunt: 50 products
+  ✓ Techmeme:     15 stories
+  ✓ Memeorandum:  15 stories
+  ✓ Wiki Anomalies: 0 breaking signals (normal)
+  ✓ Wikipedia:    145 articles
+
+Matching across all source pairs...
+
+════════════════════════════════════════════════════
+  CROSS-PLATFORM PEAKS — 33 found
+════════════════════════════════════════════════════
+
+  #01 [██████] score 6  |  Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+       Sources: memeorandum + news + techmeme + wikipedia
+
+  #02 [████░░] score 4  |  Trump postpones executive order on AI over China concerns – US politics live
+       Sources: memeorandum + news + techmeme
+
+  #03 [████░░] score 4  |  Trump is supporting Spencer Pratt in the LA mayor’s race. It may be a poison pil
+       Sources: news + techmeme + wikipedia
+
+  #04 [████░░] score 4  |  House Republicans cancel vote curbing Trump on Iran
+       Sources: memeorandum + news + youtube
+
+  #05 [████░░] score 4  |  Stephen Colbert's 'Late Show' ends with a swan song and a giant wormhole
+       Sources: news + wikipedia + youtube
+
+  #06 [████░░] score 4  |  Tuchel leaves Palmer and Foden out of England’s 2026 World Cup squad
+       Sources: news + wikipedia + youtube
+
+  #07 [████░░] score 4  |  Two-time NASCAR champ Kyle Busch dies at 41 after ‘severe illness’
+       Sources: news + wikipedia + youtube
+
+  #08 [████░░] score 4  |  Uganda Restricts Travel with Congo Over Ebola Outbreak
+       Sources: news + wikipedia + youtube
+
+  #09 [████░░] score 4  |  Iran and Oman in Talks Over Strait of Hormuz Ship Payment System
+       Sources: news + wikipedia + youtube
+
+  #10 [████░░] score 4  |  Justice Dept. Charges Raúl Castro as Trump Escalates Pressure Campaign Against C
+       Sources: news + wikipedia + youtube
+
+  #11 [██░░░░] score 2  |  Google's Antigravity bait and switch
+       Sources: hackernews + producthunt
+
+  #12 [██░░░░] score 2  |  Project Hail Mary – Stellar Navigation Chart
+       Sources: hackernews + wikipedia
+
+  #13 [██░░░░] score 2  |  Wall Street Journal reporter Evan Gershkovich appeals against arrest, Russian st
+       Sources: news + techmeme
+
+  #14 [██░░░░] score 2  |  Trump says he's sending 5,000 more troops to Poland
+       Sources: memeorandum + news
+
+  #15 [██░░░░] score 2  |  US pausing $14bn arms sale to Taiwan due to Iran war, navy chief says
+       Sources: memeorandum + news
+
+  #16 [██░░░░] score 2  |  Trump allies, Jan. 6 defendants lining up to apply for $1.7 billion fund
+       Sources: memeorandum + news
+
+  #17 [██░░░░] score 2  |  House GOP pulls Iran war resolution that appeared to have enough support to pass
+       Sources: memeorandum + news
+
+  #18 [██░░░░] score 2  |  GOP senators press Blanche on "anti-weaponization fund" in tense meeting
+       Sources: memeorandum + news
+
+  #19 [██░░░░] score 2  |  Haberman reveals why Trump attacked judge and his family in speech
+       Sources: memeorandum + news
+
+  #20 [██░░░░] score 2  |  Musk's Twitter promised a purge of blue check marks. Instead he singled out the 
+       Sources: memeorandum + news
+
+  #21 [██░░░░] score 2  |  Progressive Democrats criticize 2024 election autopsy for silence on Gaza | Firs
+       Sources: memeorandum + news
+
+  #22 [██░░░░] score 2  |  On the Ground in South Sudan: Why Akobo Faces an Ebola Risk
+       Sources: news + youtube
+
+  #23 [██░░░░] score 2  |  Musk's SpaceX postpones Starship launch as mega share sale looms
+       Sources: news + youtube
+
+  #24 [██░░░░] score 2  |  Trump’s ‘disappointment’ with Nato lays groundwork for ‘one of the most importan
+       Sources: news + youtube
+
+  #25 [██░░░░] score 2  |  Air France Flight to U.S. Is Diverted to Montreal Over Congolese Passenger Amid 
+       Sources: news + wikipedia
+
+  #26 [██░░░░] score 2  |  Video Shows Itamar Ben-Gvir Taunting Pro-Palestinian Activists
+       Sources: news + wikipedia
+
+  #27 [██░░░░] score 2  |  WATCH:  Best and worst times to drive for your Memorial Day road trip
+       Sources: news + wikipedia
+
+  #28 [██░░░░] score 2  |  Chelsea searches for new manager as Premier League breaks record for most sackin
+       Sources: news + wikipedia
+
+  #29 [██░░░░] score 2  |  How Cuban-Americans feel about Raúl Castro's indictment
+       Sources: news + wikipedia
+
+  #30 [██░░░░] score 2  |  Parody Cockroach Janta political party’s rise reflects youth anger in India
+       Sources: news + wikipedia
+
+  #31 [██░░░░] score 2  |  Fact Sheet: President Donald J. Trump Reverses Biden-Era Refrigerant Rules (The 
+       Sources: memeorandum + wikipedia
+
+  #32 [██░░░░] score 2  |  Iran quickly rebuilds its arsenal: What it means for the war
+       Sources: wikipedia + youtube
+
+  #33 [██░░░░] score 2  |  LIVE: UN agencies brief media on Ebola
+       Sources: wikipedia + youtube
+
+  Report saved → peak_report.html
+
