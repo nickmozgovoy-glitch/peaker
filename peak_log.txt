@@ -217,3 +217,104 @@ Matching across all source pairs...
 
   Report saved → peak_report.html
 
+
+════════════════════════════════════════════════════
+  Peak Detector v1.0
+════════════════════════════════════════════════════
+
+  ✓ Hacker News:  30 stories
+  ✓ News RSS:     296 headlines (cached)
+  ✓ YouTube RSS:  30 videos (cached)
+  ✓ Product Hunt: 50 products
+  ✓ Techmeme:     15 stories
+  ✓ Memeorandum:  15 stories
+  ✓ Wiki Anomalies: 0 breaking signals (normal)
+  ✓ Wikipedia:    0 articles
+
+Matching across all source pairs...
+  ℹ  DB: 1 новых, 25 дублей пропущено
+
+════════════════════════════════════════════════════
+  CROSS-PLATFORM PEAKS — 26 found
+════════════════════════════════════════════════════
+
+  #01 [██████] score 6  |  Trump administration to force foreigners in the U.S. to apply for a green card a
+       Sources: memeorandum + news + techmeme + youtube
+
+  #02 [██████] score 6  |  Musk's Twitter promised a purge of blue check marks. Instead he singled out the 
+       Sources: memeorandum + news + techmeme + youtube
+
+  #03 [████░░] score 4  |  Wall Street Journal reporter Evan Gershkovich appeals against arrest, Russian st
+       Sources: news + techmeme + youtube
+
+  #04 [████░░] score 4  |  Once Trump’s Co-Pilot Against Iran, Netanyahu Is Now a Mere Passenger
+       Sources: memeorandum + news + youtube
+
+  #05 [████░░] score 4  |  Tulsi Gabbard resigning as director of national intelligence
+       Sources: memeorandum + news + youtube
+
+  #06 [████░░] score 4  |  Cruz says Blanche faced "full-on revolt" over DOJ fund at meeting with GOP senat
+       Sources: memeorandum + news + youtube
+
+  #07 [████░░] score 4  |  Judge tosses federal charges against Kilmar Abrego Garcia
+       Sources: memeorandum + news + youtube
+
+  #08 [██░░░░] score 2  |  Uganda confirms three new Ebola cases, bringing total to five
+       Sources: news + techmeme
+
+  #09 [██░░░░] score 2  |  Diplomacy intensifies to seek peace deal between US and Iran
+       Sources: news + techmeme
+
+  #10 [██░░░░] score 2  |  Trump’s Pursuit of a Partnership With China Raises Concerns in India
+       Sources: news + techmeme
+
+  #11 [██░░░░] score 2  |  Queen Elizabeth Pushed for Ex-Prince Andrew to Get Envoy Position, New Documents
+       Sources: news + techmeme
+
+  #12 [██░░░░] score 2  |  Goodbye Trump, hello Putin: China’s Xi welcomes Russian leader facing pressure a
+       Sources: news + techmeme
+
+  #13 [██░░░░] score 2  |  The space race to create gym equipment for future astronauts
+       Sources: news + techmeme
+
+  #14 [██░░░░] score 2  |  U.S. passengers flying from Ebola-affected countries rerouted
+       Sources: memeorandum + news
+
+  #15 [██░░░░] score 2  |  U.S. Ebola Travel Ban Faces Criticism From Congo Health Officials
+       Sources: memeorandum + news
+
+  #16 [██░░░░] score 2  |  In Jab at Trump, Mexico Targets Foreign Election Meddling
+       Sources: memeorandum + news
+
+  #17 [██░░░░] score 2  |  Democratic chair faces calls to quit over ‘shambles’ of election autopsy release
+       Sources: memeorandum + news
+
+  #18 [██░░░░] score 2  |  Coal mine gas explosion in China kills 90 people, state media say
+       Sources: news + youtube
+
+  #19 [██░░░░] score 2  |  SpaceX launches its biggest, most beefed-up Starship yet on a test flight
+       Sources: news + youtube
+
+  #20 [██░░░░] score 2  |  Failing chemical tank forces thousands to evacuate in Southern California
+       Sources: news + youtube
+
+  #21 [██░░░░] score 2  |  Iran and Oman in Talks Over Strait of Hormuz Ship Payment System
+       Sources: news + youtube
+
+  #22 [██░░░░] score 2  |  Staten Island shipyard explosion, fire leaves 1 dead, over 30 hurt
+       Sources: news + youtube
+
+  #23 [██░░░░] score 2  |  Kevin Warsh sworn in as new Fed chair, replacing Powell
+       Sources: news + youtube
+
+  #24 [██░░░░] score 2  |  NASCAR world remembers Kyle Busch after sudden death
+       Sources: news + youtube
+
+  #25 [██░░░░] score 2  |  Stephen Colbert says farewell to "The Late Show" in heartfelt finale
+       Sources: news + youtube
+
+  #26 [██░░░░] score 2  |  How the Middle East conflict is worsening Somalia’s slide into famine
+       Sources: news + youtube
+
+  Report saved → peak_report.html
+
