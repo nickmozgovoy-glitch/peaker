@@ -1,11 +1,12 @@
 Peak Detector Analytics Report
-Generated: 2026-05-22 14:34
-Period: 2026-05-21 to 2026-05-22
-Total events: 716
+Generated: 2026-05-23 16:05
+Period: 2026-05-21 to 2026-05-23
+Total events: 1248
 
 BY DAY:
   2026-05-21: 390 events, avg score 2.3, max 4.0
-  2026-05-22: 326 events, avg score 2.5, max 6.0
+  2026-05-22: 741 events, avg score 2.5, max 6.0
+  2026-05-23: 117 events, avg score 2.6, max 6.0
 
 TOP 10 EVENTS:
   1. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
@@ -26,14 +27,14 @@ TOP 10 EVENTS:
      Sources: memeorandum, news, techmeme, wikipedia
   9. [6.0] Trump is supporting Spencer Pratt in the LA mayor’s race. It may be a poison pill
      Sources: memeorandum, news, techmeme, wikipedia
-  10. [4.0] Trump Says He Postponed a ‘Very Major Attack’ on Iran, Leaving Mideast on Edge
-     Sources: memeorandum, news, techmeme
+  10. [6.0] Dogecoin jumps after Elon Musk replaces Twitter bird with Shiba Inu
+     Sources: memeorandum, news, techmeme, wikipedia
 
 SOURCE FREQUENCY:
-  news: 625
-  youtube: 326
-  memeorandum: 255
-  techmeme: 140
-  wikipedia: 130
-  hackernews: 76
-  producthunt: 5
+  news: 1102
+  youtube: 562
+  memeorandum: 432
+  wikipedia: 346
+  techmeme: 207
+  hackernews: 101
+  producthunt: 10

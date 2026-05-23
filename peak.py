@@ -289,7 +289,7 @@ def fetch_wikipedia():
     try:
         y = (datetime.now() - timedelta(days=1)).strftime("%Y/%m/%d")
         resp = requests.get(f"https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/{y}", headers={"User-Agent": USER_AGENT}, timeout=15)
-        articles = resp.json()["items"][0]["articles"][:150]
+        articles = (resp.json().get("items") or [{}])[0].get("articles") or [][:150]
         result = [(a["article"].replace("_"," "), a["views"], a["rank"]) for a in articles if not any(a["article"].lower().startswith(n) for n in noise)]
         print(f"  ✓ Wikipedia:    {len(result)} articles")
         return result
